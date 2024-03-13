@@ -1,0 +1,21 @@
+.tmTextInput {
+    border: 1px solid #fff;
+    background: rgba(0,0,0,0);
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+input {
+    line-height: 2.1875rem;
+    padding: 0 10px;
+}
+
+* + .tmTextInput {
+    margin-top: 10px;
+}
+
+.tmTextInput:focus {
+    border-width: 2px;
+}

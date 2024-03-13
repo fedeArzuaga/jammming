@@ -1,0 +1,10 @@
+.tmBtn {
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #495057;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.tmBtn:hover {
+    background-color: rgba(0,0,0,0.5);
+}
