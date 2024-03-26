@@ -18,6 +18,10 @@ body {
     padding-right: 40px;
 }
 
+.container.container-md {
+    max-width: 700px;
+}
+
 h1 {
     margin: 2rem 0;
 }
