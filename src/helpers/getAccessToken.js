@@ -6,8 +6,6 @@ export const getAccessToken = () => {
 
     const url = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientID}&redirect_uri=${redirect_uri}&scope=playlist-modify-public playlist-modify-private`
 
-    return url;
+    window.location.href = url;
 
 }
-
-// IMPLEMENT playlist-modify-public SCOPE TO CREATE PLAYLISTS

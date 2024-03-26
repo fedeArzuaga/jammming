@@ -2,36 +2,35 @@ import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar"
 import SearchResults from "./components/SearchResults/SearchResults";
 import Playlist from "./components/Playlist/Playlist";
-import { getAccessToken } from "./helpers/getAccessToken";
 import { useSearchForm } from "./hooks/useSearchForm";
-
-const initialAccessToken = localStorage.getItem("access_token") || "";
+import { useNavigate } from "react-router-dom";
 
 function Jamming() {
 
+    const navigate = useNavigate();
     const { inputState, trackList, handleSearchChange } = useSearchForm()
     const [ playlist, setPlaylist ] = useState([])
-    const [ accessToken, setAccessToken ] = useState( initialAccessToken )
+    const [ accessToken, setAccessToken ] = useState( localStorage.getItem("access_token") || "" )
 
     useEffect(() => {
 
         if ( accessToken.length === 0 && !window.location.href.includes("access_token") ) {
             
-            const getAccessTokenURL = getAccessToken();
-            window.location.replace( getAccessTokenURL )
+            navigate("/get-permissions")
 
-        } else if ( accessToken.length === 0 && window.location.href.includes("access_token") ) {
+        }              
+
+        if ( accessToken.length === 0 || window.location.href.includes("access_token") ) {
 
             const access_token = window.location.href.split("=")[1].split("&")[0];
             setAccessToken( access_token )
             localStorage.setItem("access_token", access_token);
             localStorage.setItem("expiresAt", (new Date().getTime() + 3600000).toString());
-
-            window.history.replaceState(null, document.title, window.location.pathname)
+            navigate("/")
 
         }
 
-    }, [])
+    }, [ accessToken ])
 
     useEffect( () => {
 
@@ -42,6 +41,7 @@ function Jamming() {
             localStorage.removeItem("access_token")
             localStorage.removeItem("expiresAt")
             setAccessToken("")
+            navigate("/get-permissions")
         }
 
     }, [])
